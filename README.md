@@ -20,7 +20,7 @@ pipenv shell
 
 For linting:
 ```bash
-bash scripts/lint.sh
+pipenv run lint
 ```
 
 To run all tests
