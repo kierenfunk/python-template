@@ -4,9 +4,15 @@ on: [push]
 
 jobs:
   test: 
+    runs-on: ubuntu-latest
     steps:
       - name: Check out code
         uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          cache: 'pipenv'
 
       - name: Install pipenv
         run: pip install pipenv
