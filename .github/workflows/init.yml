@@ -19,15 +19,9 @@ jobs:
           ref: ${{ github.head_ref }}
           
       - run: echo "REPOSITORY_NAME=$(echo '${{ github.repository }}' | awk -F '/' '{print $2}' | tr '-' '_' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
-        shell: bash
-
       - run: echo "REPOSITORY_URLNAME=$(echo '${{ github.repository }}' | awk -F '/' '{print $2}')" >> $GITHUB_ENV
-        shell: bash
-
       - run: echo "REPOSITORY_OWNER=$(echo '${{ github.repository }}' | awk -F '/' '{print $1}')" >> $GITHUB_ENV
-        shell: bash
-
-      - run: echo "${{ env.REPOSITORY_NAME }}"
+      - run: ./setup.sh
       # - run: setup.sh 
         # shell: bash
 
