@@ -1,0 +1,24 @@
+name: CI
+
+on: [push]
+
+jobs:
+  test: 
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Install pipenv
+        run: pip install pipenv
+
+      - name: pipenv check
+        run: pipenv check
+
+      - name: Install pipenv dependencies
+        run: pipenv install --dev
+
+      - name: Lint
+        run: pipenv run lint
+
+      - name: Test
+        run: pipenv run pytest
