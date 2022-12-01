@@ -3,6 +3,7 @@ name: Initialise the project from template
 on:
   push: 
     branches:
+      - master
       - main
 
 jobs:
