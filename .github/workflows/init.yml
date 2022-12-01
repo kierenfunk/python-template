@@ -1,7 +1,7 @@
 name: Initialise the project from template
 
 on:
-  push: 
+  create: 
     branches:
       - master
       - main
@@ -9,7 +9,7 @@ on:
 jobs:
   rename-project:
     runs-on: ubuntu-latest
-    # if: ${{ github.repository != 'kierenfunk/python-template '}}
+    if: ${{ github.repository != 'kierenfunk/python-template' }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -20,24 +20,17 @@ jobs:
           
       - run: echo "REPOSITORY_NAME=$(echo '${{ github.repository }}' | awk -F '/' '{print $2}' | tr '-' '_' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
       - run: echo "REPOSITORY_URLNAME=$(echo '${{ github.repository }}' | awk -F '/' '{print $2}')" >> $GITHUB_ENV
-      - run: echo "REPOSITORY_OWNER=$(echo '${{ github.repository }}' | awk -F '/' '{print $1}')" >> $GITHUB_ENV
-      - run: ./setup.sh
-      # - run: setup.sh 
-        # shell: bash
+      - run: ./init.sh "${{ env.REPOSITORY_NAME }}" "${{ env.REPOSITORY_URLNAME }}"
+      - run: rm init.sh .github/workflows/init.yml
 
-      #- name: Rename the project
-      #  run: |
-      #    echo "Renaming the project with -a(author) ${{ env.REPOSITORY_OWNER }} -n(name) ${{ env.REPOSITORY_NAME }} -u(urlname) ${{ env.REPOSITORY_URLNAME }}"
-      #    .github/rename_project.sh -a ${{ env.REPOSITORY_OWNER }} -n ${{ env.REPOSITORY_NAME }} -u ${{ env.REPOSITORY_URLNAME }} -d "Awesome ${{ env.REPOSITORY_NAME }} created by ${{ env.REPOSITORY_OWNER }}"
-
-      #- name: Get last commit message
-      #  id: last-commit-message
-      #  run: |
-      #    echo "::set-output name=msg::$(git log -1 --pretty=%s)"
+      - name: Get last commit message
+        id: last-commit-message
+        run: |
+          echo "::set-output name=msg::$(git log -1 --pretty=%s)"
       
-      #- uses: stefanzweifel/git-auto-commit-action@v4
-      #  with:
-      #    commit_message: "✅ Ready to clone and code."
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "✅ Ready to clone and code."
           # commit_message: ${{ steps.last-commit-message.outputs.msg }}
           # commit_options: '--amend --no-edit'
-      #    push_options: --force
+          push_options: --force
