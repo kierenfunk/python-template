@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [scripts]
-lint = "bash -c 'autopep8 src -riv --max-line-length=79 && flake8 && pylint src tests && mypy src tests'"
+lint = "bash -c 'autopep8 src tests -riv --max-line-length=119 && flake8 src tests --ignore=E501,W503 && pylint src tests --disable=C0301 && mypy src tests'"
 
 [packages]
 
