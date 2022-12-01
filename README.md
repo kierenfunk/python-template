@@ -1,6 +1,8 @@
 # Python starter template
 > Template for python with pipenv
 
+[![CI](https://github.com/kierenfunk/python-template/actions/workflows/ci.yml/badge.svg)](https://github.com/kierenfunk/python-template/actions/workflows/ci.yml)
+
 ## Get Started
 
 ### Requirements
